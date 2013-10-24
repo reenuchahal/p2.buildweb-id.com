@@ -3,14 +3,17 @@
 	<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-8">
 		<h3>Name: <?=$user->first_name?></h3>
 		<h3>Email: <?=$user->email?> </h3>
-		
+		<?=$user->profile_image?>
+		<img src="<?=$user->avatar?>" />
+		<img src="<?=$user->avatar_small?>" />
+		<img src="<?=$user->avatar_medium?>" />
 	</div>
 </div>
-<form method="POST" action="/users/p_profile">
+<form enctype="multipart/form-data" method="POST" action="/users/p_profile">
 	<div class="form-group row">
 		<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-8">
 			<label for="imageInputFile">Upload your profile pic</label>
-		    <input type="file" id="imageInputFile" name="profile_image">
+		    <input type="file" name="profile_image">
 		</div>
 	</div>
 

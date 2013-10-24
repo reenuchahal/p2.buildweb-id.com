@@ -160,8 +160,26 @@ class users_controller extends base_controller {
 		# Render View
 		echo $this->template;
 	}
-	
 	public function p_profile(){
+		
+		echo $_FILES['profile_image']['name'];
+		# Where the file is going to be placed
+		$target_path = "/uploads/";
+		
+		# Add the original filename to our target path.
+		# Result is "uploads/filename.extension" 
+		$target_path = $target_path.basename( $_FILES['profile_image']['name']);
+		
+		if(move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_path)) {
+			echo "The file ".  basename( $_FILES['profile_image']['name'])." has been uploaded";
+		} else {
+			echo "There was an error uploading the file, please try again!";
+		}
+	
+	}
+	
+	
+	/*public function p_profile(){
 				$q = "UPDATE users
                      SET profile_image = '".$_POST['profile_image']."'
                      WHERE email = '".$this->user->email."'";
@@ -170,7 +188,7 @@ class users_controller extends base_controller {
 				# Run the command
 				DB::instance(DB_NAME)->query($q);
 				 echo "Profile image updated";
-	}
+	}*/
 	
 	
 	public function p_profile_update(){
