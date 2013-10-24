@@ -1,10 +1,10 @@
 <?php
 class users_controller extends base_controller {
 	
-	/*public function __construct() {
+	public function __construct() {
 		parent::__construct();
-		echo "users_controller construct called. <br/><br/>";
-	}*/
+		
+	}
 	
 	public function index() {
 		echo "This is the index page.<br/>";
@@ -19,12 +19,16 @@ class users_controller extends base_controller {
 		echo $this->template;
 	}
 	
-	/*
-	public function email_welcome(){
-		$this->template->content = View::instance('v_users_email_welcome');
+	
+	public function welcome(){
+		if (!$this->user){
+		$this->template->content = View::instance('v_users_welcome');
+		$this->template->title = "Welcome To ChitChat";
 		echo $this->template;
+		} else {
+			Router::redirect("/");
+		}
 	}
-	*/
 	
 	public function p_signup(){
 		
@@ -33,17 +37,16 @@ class users_controller extends base_controller {
         WHERE email = '".$_POST['email']."'
        ";
 		
+		# Find Match
 		$token = DB::instance(DB_NAME)->select_field($q);
 		
-		# If we find a matching token in the database, it means it is a duplicate email
+		# If we find a matching token in the database, it means, it's a duplicate email
 		if($token) {
 			
 			# Send them back to the login page
 			Router::redirect("/users/signup/error");
-		
-			# But if we did, login succeeded!
-		}
-		else {
+			
+		} else {
 		
 		# More data we want stored with the user
 		$_POST['created']  = Time::now();
@@ -55,37 +58,20 @@ class users_controller extends base_controller {
 		# Create an encrypted token via their email address and a random string
 		$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 		
-		$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
+		# Insert all $_POST Info to database-> users table
+		DB::instance(DB_NAME)->insert('users', $_POST);
 		
-		
+		# Set to, from, subject and body for a Welcome Email
 		$to[]    = Array("name" => $_POST['first_name'], "email" => $_POST['email']);
 		$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
 		$subject = "Welcome!!! You have signed up for ChitChat";
-		
 		$body = View::instance('v_users_email_welcome');
 		
-		# Send email
+		# Send Welcome email
 		$email = Email::send($to, $from, $subject, $body, true, '');
 		
-		echo $body;
-		echo $email;
-		
-		/*
-		#start building the mail string
-		$msg = "Name: ".$_POST['first_name']."\n";
-		$msg .= "E-Mail: ".$_POST['email']."\n";
-		$msg .= "Welcome ".$_POST['first_name']." ".$_POST['last_name'].", You have Signed Up on ChitChat.";
-		
-		#set up the mail
-		$recipient = $_POST['email'];
-		$subject = "chitchat@buildweb-id.com";
-		$mailheaders = "From:Me <chitchat@buildweb-id.com> \n";
-		$mailheaders .= "Reply-To: chitchat@buildweb-id.com";
-		
-		#send the mail
-		mail($recipient, $subject, $msg, $mailheaders);
-		*/
-		echo "You are signed in.";
+		# Route to Welcome Page
+		Router::redirect("/users/welcome/");
 		}
 	}
 	
@@ -153,24 +139,36 @@ class users_controller extends base_controller {
 	
 	public function profile($error = NULL) {
 		
-		# If user is blank, they're not logged in; redirect them to the login page
+		# If user is not logged in; redirect it to the login page
 		if(!$this->user) {
 			Router::redirect('/users/login');
-		}
+			}
 		
 		# Set View
 		$this->template->content = View::instance('v_users_profile');
 		
 		# Set Page Title
 		$this->template->title = "Profile of ".$this->user->first_name;
+		
+		# Set Error
 		$this->template->content->error = $error;
 		
+		# Get IP addres
+		$ip= Geolocate::ip_address();
+		
+		# Get Location using IP Address
+		$this->template->content->location = Geolocate::geoplugin($ip);
+		
+		# Get Profile specific CSS for Head
 		$client_files_head = Array(
 				'/css/editable-bootstrap/bootstrap-editable.css',
 				'/css/editable-bootstrap/css/bootstrap.css'
 				);
+		
+		# Set Profile specific CSS for Head
 		$this->template->client_files_head = Utils::load_client_files($client_files_head);
 		
+		# Get Profile specific JS for body
 		$client_files_body = Array(
 				'/js/old-bootstrap/bootstrap.min.js',
 				'/js/bootstrap-editable.min.js',
@@ -178,58 +176,47 @@ class users_controller extends base_controller {
 				'/js/script.js'
 				);
 		
+		# Set Profile specific JS for body
 		$this->template->client_files_body = Utils::load_client_files($client_files_body);
 		
 		# Render View
 		echo $this->template;
+		
 	}
 	
 	public function p_profile() {
-		$upload = Upload::upload($_FILES, "/uploads/", array("jpg", "jpeg", "gif", "png"), "profile_image");
+		
+		#Create a random number 
+		$rand_val = date('YMDHIS') . rand(11111, 99999);
+		
+		# Get Uploaded file name without extension
+		$new_file_name = preg_replace("/\\.[^.]*$/", "",basename($_FILES['profile_image']['name']));
+		
+		# Assign created random number to file.
+		$new_file_name = md5($rand_val);
+		
+		# Upload file 
+		$upload = Upload::upload($_FILES, "/uploads/avatars/", array("jpg", "jpeg", "gif", "png"), $new_file_name);
 		
 		if(isset($upload)){
-		$q = "UPDATE users
-                     SET profile_image = '".$upload."'
-                     WHERE email = '".$this->user->email."'";
-			
-		# Run the command
-		DB::instance(DB_NAME)->query($q);
-			
-		Router::redirect("/users/profile");
-		}
-		else {
-			Router::redirect("/users/profile/error");
-		}
-	
-	}
-	
-	/*
-	public function p_profile(){
-		
-		# Where the file is going to be placed
-		$target_path = "uploads/";
-		
-		# Add the original filename to our target path.
-		# Result is "uploads/filename.extension" 
-		$target_path = $target_path.basename( $_FILES['profile_image']['name']);
-		
-		if(move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_path)) {
 			$q = "UPDATE users
-                     SET profile_image = '".$_FILES['profile_image']['name']."'
-                     WHERE email = '".$this->user->email."'";
+                  SET profile_image = '".$upload."'
+                  WHERE email = '".$this->user->email."'
+                  ";
 			
 			# Run the command
 			DB::instance(DB_NAME)->query($q);
 			
+			# Route to profile page
 			Router::redirect("/users/profile");
+			
 		} else {
+			
+			# Route to profile page's Error
 			Router::redirect("/users/profile/error");
 		}
-		
-		
 	
 	}
-	*/
 	
 	public function p_profile_update(){
 		

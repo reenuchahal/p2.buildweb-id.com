@@ -1,4 +1,1 @@
-<h1>Welcome <?=$user->first_name?> <?=$user->last_name?>, You have Signed Up on ChitChat.</h1>
-
-
-
+<h1>Hi <?=$user->first_name?></h1>

@@ -1,10 +1,23 @@
 
 <div class="row">
 	<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-8">
-		
+		<ul>
+		<li>IP: <?=$location['ip'];?></li>
+		<?php if($location['ip'] == '127.0.0.1'): ?>
+		<li>Country Code: Local Host</li>
+		<li>State: Local Host</li>
+		<li>City: Local Host</li>
+		<?php else: ?>
+		<li>Country Code: <?=$location['country_code'];?></li>
+		<li>State: <?=$location['state'];?></li>
+		<li>City: <?=$location['city'];?></li>
+		<?php endif; ?>
+		</ul>
 		<h3>Name: <?=$user->first_name?></h3>
 		<h3>Email: <?=$user->email?> </h3>
-		<img src="/uploads/<?=$user->profile_image?>" />
+		<?php if(!isset($user->profile_image->NULL)): ?>
+		<img src="/uploads/avatars/<?=$user->profile_image?>" />
+		<?php endif; ?>
 		
 		
 	</div>
