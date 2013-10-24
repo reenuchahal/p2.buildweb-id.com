@@ -1,12 +1,12 @@
 
 <div class="row">
 	<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-8">
+		
 		<h3>Name: <?=$user->first_name?></h3>
 		<h3>Email: <?=$user->email?> </h3>
-		<?=$user->profile_image?>
-		<img src="<?=$user->avatar?>" />
-		<img src="<?=$user->avatar_small?>" />
-		<img src="<?=$user->avatar_medium?>" />
+		<img src="/uploads/<?=$user->profile_image?>" />
+		
+		
 	</div>
 </div>
 <form enctype="multipart/form-data" method="POST" action="/users/p_profile">
@@ -16,6 +16,24 @@
 		    <input type="file" name="profile_image">
 		</div>
 	</div>
+	<?php if(isset($message)): ?>
+		<div class="row message">
+			<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-5">
+				<p>Profile image has been uploaded</p>
+			</div>
+		</div>
+	<?php endif; ?>
+	
+	<?php if(isset($error)): ?>
+		<div class="row error">
+			<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-5">
+				<p> There was an error uploading the file, please try again!</p>
+			</div>
+		</div>
+	<?php endif; ?>
+	
+	
+	
 
 	<div class="row">
 		<div class="col-md-offset-1 col-sm-offset-1 col-xs-8 col-sm-6 col-md-4">
@@ -23,6 +41,7 @@
 		</div>
 	</div>
 </form>
+
 <form method="POST" action="/users/p_profile_update">
 
 	<p>Click on fields to edit:</p>

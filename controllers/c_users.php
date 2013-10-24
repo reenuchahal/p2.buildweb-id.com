@@ -19,6 +19,13 @@ class users_controller extends base_controller {
 		echo $this->template;
 	}
 	
+	/*
+	public function email_welcome(){
+		$this->template->content = View::instance('v_users_email_welcome');
+		echo $this->template;
+	}
+	*/
+	
 	public function p_signup(){
 		
 		$q = "SELECT token
@@ -50,6 +57,20 @@ class users_controller extends base_controller {
 		
 		$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
 		
+		
+		$to[]    = Array("name" => $_POST['first_name'], "email" => $_POST['email']);
+		$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
+		$subject = "Welcome!!! You have signed up for ChitChat";
+		
+		$body = View::instance('v_users_email_welcome');
+		
+		# Send email
+		$email = Email::send($to, $from, $subject, $body, true, '');
+		
+		echo $body;
+		echo $email;
+		
+		/*
 		#start building the mail string
 		$msg = "Name: ".$_POST['first_name']."\n";
 		$msg .= "E-Mail: ".$_POST['email']."\n";
@@ -63,7 +84,7 @@ class users_controller extends base_controller {
 		
 		#send the mail
 		mail($recipient, $subject, $msg, $mailheaders);
-		
+		*/
 		echo "You are signed in.";
 		}
 	}
@@ -130,7 +151,7 @@ class users_controller extends base_controller {
 	
 	}
 	
-	public function profile() {
+	public function profile($error = NULL) {
 		
 		# If user is blank, they're not logged in; redirect them to the login page
 		if(!$this->user) {
@@ -142,6 +163,8 @@ class users_controller extends base_controller {
 		
 		# Set Page Title
 		$this->template->title = "Profile of ".$this->user->first_name;
+		$this->template->content->error = $error;
+		
 		$client_files_head = Array(
 				'/css/editable-bootstrap/bootstrap-editable.css',
 				'/css/editable-bootstrap/css/bootstrap.css'
@@ -160,36 +183,53 @@ class users_controller extends base_controller {
 		# Render View
 		echo $this->template;
 	}
+	
+	public function p_profile() {
+		$upload = Upload::upload($_FILES, "/uploads/", array("jpg", "jpeg", "gif", "png"), "profile_image");
+		
+		if(isset($upload)){
+		$q = "UPDATE users
+                     SET profile_image = '".$upload."'
+                     WHERE email = '".$this->user->email."'";
+			
+		# Run the command
+		DB::instance(DB_NAME)->query($q);
+			
+		Router::redirect("/users/profile");
+		}
+		else {
+			Router::redirect("/users/profile/error");
+		}
+	
+	}
+	
+	/*
 	public function p_profile(){
 		
-		echo $_FILES['profile_image']['name'];
 		# Where the file is going to be placed
-		$target_path = "/uploads/";
+		$target_path = "uploads/";
 		
 		# Add the original filename to our target path.
 		# Result is "uploads/filename.extension" 
 		$target_path = $target_path.basename( $_FILES['profile_image']['name']);
 		
 		if(move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_path)) {
-			echo "The file ".  basename( $_FILES['profile_image']['name'])." has been uploaded";
+			$q = "UPDATE users
+                     SET profile_image = '".$_FILES['profile_image']['name']."'
+                     WHERE email = '".$this->user->email."'";
+			
+			# Run the command
+			DB::instance(DB_NAME)->query($q);
+			
+			Router::redirect("/users/profile");
 		} else {
-			echo "There was an error uploading the file, please try again!";
+			Router::redirect("/users/profile/error");
 		}
+		
+		
 	
 	}
-	
-	
-	/*public function p_profile(){
-				$q = "UPDATE users
-                     SET profile_image = '".$_POST['profile_image']."'
-                     WHERE email = '".$this->user->email."'";
-				
-				
-				# Run the command
-				DB::instance(DB_NAME)->query($q);
-				 echo "Profile image updated";
-	}*/
-	
+	*/
 	
 	public function p_profile_update(){
 		
