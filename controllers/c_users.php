@@ -19,7 +19,7 @@ class users_controller extends base_controller {
 		echo $this->template;
 	}
 	
-	
+	/*
 	public function welcome(){
 		if (!$this->user){
 		$this->template->content = View::instance('v_users_welcome');
@@ -29,7 +29,7 @@ class users_controller extends base_controller {
 			Router::redirect("/");
 		}
 	}
-	
+	*/
 	public function p_signup(){
 		
 		$q = "SELECT token
@@ -70,8 +70,8 @@ class users_controller extends base_controller {
 		# Send Welcome email
 		$email = Email::send($to, $from, $subject, $body, true, '');
 		
-		# Route to Welcome Page
-		Router::redirect("/users/welcome/");
+		# Route to login Page
+		Router::redirect("/users/login/");
 		}
 	}
 	
@@ -190,8 +190,11 @@ class users_controller extends base_controller {
 		$rand_val = date('YMDHIS') . rand(11111, 99999);
 		
 		# Get Uploaded file name without extension
+		if (!basename($_FILES['profile_image']['name']) == NULL){
 		$new_file_name = preg_replace("/\\.[^.]*$/", "",basename($_FILES['profile_image']['name']));
-		
+		} else {
+			Router::redirect("/users/profile/error");
+		}
 		# Assign created random number to file.
 		$new_file_name = md5($rand_val);
 		
@@ -206,6 +209,7 @@ class users_controller extends base_controller {
 			
 			# Run the command
 			DB::instance(DB_NAME)->query($q);
+			
 			
 			# Route to profile page
 			Router::redirect("/users/profile");
@@ -232,8 +236,27 @@ class users_controller extends base_controller {
 	}
 	
 	public function findfriends() {
+		# Make sure user is logged in
+		if(!$this->user) {
+			Router::redirect("/users/login");
+		} else {
+		
+		# Setup view
 		$this->template->content = View::instance('v_users_find_friends');
 		$this->template->title = "Find Friends";
+		
+		# Build the query
+		$q = "SELECT first_name, last_name
+		FROM users";
+		
+		# Run the query
+		$users = DB::instance(DB_NAME)->select_rows($q);
+		
+		# Pass data to the View
+		$this->template->content->users = $users;
+		
+		# Render the View
 		echo $this->template;
+		}
 	}
 }

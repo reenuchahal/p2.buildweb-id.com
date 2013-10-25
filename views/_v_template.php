@@ -37,23 +37,18 @@
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse navbar-ex1-collapse">
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href='/'>Home</a></li>
+	      <li <?php if(basename($_SERVER['REQUEST_URI']) == NULL): ?> class="active" <?php endif; ?>><a href='/'>Home</a></li>
 	    </ul>
-	    <form class="navbar-form navbar-left" >
-	      <div class="form-group">
-	        <input type="text" class="form-control" placeholder="Search">
-	      </div>
-	      <button type="submit" class="btn btn-default">Submit</button>
-	    </form>
 	    <ul class="nav navbar-nav navbar-right">
 	        <?php if($user): ?>
-	          <li><a href='/users/profile'><?=$user->first_name?> <?=$user->last_name?></a></li>
+	          <li<?php if(basename($_SERVER['REQUEST_URI']) == 'add'): ?> class="active" <?php endif; ?>><a href='/posts/add'>News Feed</a></li>
+	          <li<?php if(basename($_SERVER['REQUEST_URI']) == 'findfriends'): ?> class="active" <?php endif; ?>><a href='/users/findfriends'>@ Connect</a></li>
+	          <li<?php if(basename($_SERVER['REQUEST_URI']) == 'profile'): ?> class="active" <?php endif; ?>><a href='/users/profile'><?=$user->first_name?> <?=$user->last_name?></a></li>
 	          <li><a href='/users/logout'>Logout</a></li>
 	        <?php else: ?>
-	          <li><a href='/users/signup'>Sign up</a></li>
-	          <li><a href='/users/login'>Log in</a></li>  
+	          <li <?php if(basename($_SERVER['REQUEST_URI']) == 'signup'): ?> class="active" <?php endif; ?>><a href='/users/signup'>Sign up</a></li>
+	          <li<?php if(basename($_SERVER['REQUEST_URI']) == 'login'): ?> class="active" <?php endif; ?>><a href='/users/login'>Log in</a></li>  
 	        <?php endif; ?>
-	      
 	    </ul>
 	  </div><!-- /.navbar-collapse -->
 	</nav><!-- Nav Ends -->
@@ -61,13 +56,16 @@
 	<div class="container">	
 		<?php if(isset($content)) echo $content; ?>
 	</div><!-- /.container -->
-
 	
+	<footer>
+		<div class="text-center">
+			<p>&copy; ChitChat 2013, All rights reserved.</p>
+		</div>
+	</footer><!-- / footer Ends-->
 	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	 
-    <!-- Bootstap javascript -->
-    <script src="/js/jquery-1.8.2.min.js"></script>
+	<script src="/js/jquery-1.8.2.min.js"></script>
+	<!-- Bootstap javascript -->
     <script src="/js/bootstrap.min.js"></script>
    	 <?php if(isset($client_files_body)) echo $client_files_body; ?>
 </body>
