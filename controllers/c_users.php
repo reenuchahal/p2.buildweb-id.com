@@ -28,12 +28,12 @@ class users_controller extends base_controller {
 	}
 	
 	
-	public function welcome_email() {
+	/*public function welcome_email() {
 		
 		$this->template->content = View::instance('v_users_email_welcome');
 		$this->template->title = "Welcome To ChitChat";
 		echo $this->template;
-	}
+	}*/
 	
 	public function p_signup() {
 		
