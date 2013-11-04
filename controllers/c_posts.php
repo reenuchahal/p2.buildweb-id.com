@@ -17,12 +17,24 @@ class posts_controller extends base_controller {
 		$this->template->content = View::instance('v_posts_add');
 		$this->template->title = "News Feed";
 		
+		
 		#Build the Query
-		$q ="SELECT posts.*, users.first_name, users.last_name
-				FROM posts
-				INNER JOIN users
-				ON posts.user_id = users.user_id
-				ORDER BY created DESC";
+		$q ='SELECT
+			posts.post_id,
+            posts.content,
+            posts.created,
+            posts.user_id AS post_user_id,
+            users_users.user_id AS follower_id,
+            users.first_name,
+            users.last_name
+        FROM posts
+		INNER JOIN users_users
+            ON posts.user_id = users_users.user_id_followed
+        INNER JOIN users
+            ON posts.user_id = users.user_id
+		WHERE users_users.user_id = '.$this->user->user_id.' 
+		ORDER BY posts.created DESC';
+		
 		
 		#Run the Query
 		$posts = DB::instance(DB_NAME)->select_rows($q);
@@ -52,16 +64,81 @@ class posts_controller extends base_controller {
 		
 	}
 	
+	public function follow($user_id_followed){
+		#Prepare the data array to be inserted
+		$data = Array(
+		"created" => Time::now(),
+		"user_id" => $this->user->user_id,
+		"user_id_followed" => $user_id_followed
+		);
+		
+		
+		
+		# Do the insert
+		DB::instance(DB_NAME)->insert('users_users', $data);
+		
+		# Send them back
+		Router::redirect("/users/findfriends");
+		
+		
+	}
 	
+	public function unfollow($user_id_followed) {
 	
+		# Delete this connection
+		$where_condition = 'WHERE user_id = '.$this->user->user_id.' AND user_id_followed = '.$user_id_followed;
+		DB::instance(DB_NAME)->delete('users_users', $where_condition);
 	
-
-
-
-
-
-
-
-
+		# Send them back
+		Router::redirect("/users/findfriends");
+	
+	}
+	
+	public function delete($post_id_delete){
+		
+		# Delete this connection
+		$where_condition = 'WHERE post_id = '.$post_id_delete;
+		DB::instance(DB_NAME)->delete('posts', $where_condition);
+		
+		# Send them back
+		
+		Router::redirect("/posts/add");
+	}
+  public function edit($post_id_edit){
+  	
+  	$q = "SELECT content
+			  FROM posts
+			  WHERE post_id = '".$post_id_edit."'
+			  ";
+  	$edit_content = DB::instance(DB_NAME)->select_rows($q);
+  	
+  	$this->template->content = View::instance('v_posts_edit');
+  	$this->template->title = "Edit Your Post";
+  	$this->template->content->edit_content = $edit_content[0]['content'];
+  	$this->template->content->post_id_edit = $post_id_edit;
+  	
+  	echo $this->template;
+  	
+  }	
+  
+  public function p_edit($post_id_edit){
+  	
+  	$q = "UPDATE posts
+          SET content = '".$_POST['content']."',
+          	  modified = '".Time::now()."'
+         WHERE post_id = '".$post_id_edit."'
+         	";
+  	
+  		#
+  	# Run the command
+  	DB::instance(DB_NAME)->query($q);
+  		
+  		
+  	# Route to profile page
+  	Router::redirect("/posts/add");
+  }
+  
+  
+	
 }
 

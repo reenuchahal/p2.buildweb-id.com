@@ -11,7 +11,7 @@
 		<br/>
 	</div>
 </div>
-
+<?php $loggedInUser= $user->first_name?>
 <?php foreach($posts as $post): ?>
 <div class="row">
 	<div class="col-md-offset-2 col-xs-12 col-sm-10 col-md-8">
@@ -21,8 +21,13 @@
 			<time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
 				<?=Time::display($post['created'])?>
 			</time>
+			<?php if($post['first_name'] == $loggedInUser): ?>
+			<div class="text-right delete-btn">
+				<a href="/posts/delete/<?=$post['post_id']?>" class="btn btn-danger" >Delete</a>
+				<a href="/posts/edit/<?=$post['post_id']?>" class="btn btn-default" >Edit</a>
+			</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>
-
 <?php endforeach;?>

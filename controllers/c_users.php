@@ -112,7 +112,7 @@ class users_controller extends base_controller {
 			
 			
 			#Send them to the main page
-			Router::redirect("/");
+			Router::redirect("/posts/add");
 		}
 	}
 	
@@ -224,15 +224,17 @@ class users_controller extends base_controller {
 	
 	public function p_profile_update(){
 		
-		$q = "UPDATE users
+		
+		/*$q = "UPDATE users
               SET first_name = '".$_REQUEST['firstname']."'
               WHERE email = '".$this->user->email."'";
 			
-		
+		*/
 		
 		# Run the command
-		DB::instance(DB_NAME)->query($q);
-		echo "First name updated updated";
+		# DB::instance(DB_NAME)->query($q); 
+		
+		Router::redirect("/users/profile/");
 	}
 	
 	public function findfriends() {
@@ -246,17 +248,32 @@ class users_controller extends base_controller {
 		$this->template->title = "Find Friends";
 		
 		# Build the query
-		$q = "SELECT first_name, last_name
-		FROM users";
+		$q = "SELECT *
+			  FROM users
+              "; 
+		
+		#WHERE email != '".$this->user->email."'
 		
 		# Run the query
 		$users = DB::instance(DB_NAME)->select_rows($q);
 		
+		
+		# Who are they following
+		$q = "SELECT *
+			  From users_users
+			  WHERE user_id = '".$this->user->user_id."'
+				";
+		
+		# Store our results (an array) in the variable $connections
+		$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
+		
 		# Pass data to the View
 		$this->template->content->users = $users;
+		$this->template->content->connections = $connections;
 		
 		# Render the View
 		echo $this->template;
+		
 		}
 	}
 }

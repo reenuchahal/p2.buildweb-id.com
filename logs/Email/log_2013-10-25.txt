@@ -1,0 +1,48 @@
+2013-10-25 1:50:58 - INFO --> -------------------------- 
+2013-10-25 1:50:58 - INFO --> Controller/Method: users/p_signup 
+2013-10-25 1:50:58 - INFO --> OUTGOING EMAILS ARE DISABLED. THIS EMAIL WAS NOT SENT TO THE RECIPIENTS, ONLY admin.chitchat@buildweb-id.com 
+2013-10-25 1:50:58 - INFO --> From: ChitChat (chitchat@builweb-id.com) 
+2013-10-25 1:50:58 - INFO --> To: Riya (riyakumar@gmail.com),  
+2013-10-25 1:50:58 - INFO --> CC:  
+2013-10-25 1:50:58 - INFO --> BCC:  
+2013-10-25 1:50:58 - INFO --> Subject: Welcome!!! You have signed up for ChitChat 
+2013-10-25 1:50:58 - INFO --> Body: <h1>Hi <br />
+<b>Notice</b>:  Trying to get property of non-object in <b>/Users/reenuchahal/Sites/CSCIE-15-Final-Projects/p2.buildweb-id.com/views/v_users_email_welcome.php</b> on line <b>1</b><br />
+</h1>
+ 
+2013-10-25 1:58:48 - INFO --> -------------------------- 
+2013-10-25 1:58:48 - INFO --> Controller/Method: users/p_signup 
+2013-10-25 1:58:48 - INFO --> OUTGOING EMAILS ARE DISABLED. THIS EMAIL WAS NOT SENT TO THE RECIPIENTS, ONLY admin.chitchat@buildweb-id.com 
+2013-10-25 1:58:48 - INFO --> From: ChitChat (chitchat@builweb-id.com) 
+2013-10-25 1:58:48 - INFO --> To: Meenu (meenuchahal@gmail.com),  
+2013-10-25 1:58:48 - INFO --> CC:  
+2013-10-25 1:58:48 - INFO --> BCC:  
+2013-10-25 1:58:48 - INFO --> Subject: Welcome!!! You have signed up for ChitChat 
+2013-10-25 1:58:48 - INFO --> Body: <h1>Hi <br />
+<b>Notice</b>:  Trying to get property of non-object in <b>/Users/reenuchahal/Sites/CSCIE-15-Final-Projects/p2.buildweb-id.com/views/v_users_email_welcome.php</b> on line <b>1</b><br />
+</h1>
+ 
+2013-10-25 2:27:54 - INFO --> -------------------------- 
+2013-10-25 2:27:54 - INFO --> Controller/Method: users/p_signup 
+2013-10-25 2:27:54 - INFO --> OUTGOING EMAILS ARE DISABLED. THIS EMAIL WAS NOT SENT TO THE RECIPIENTS, ONLY admin.chitchat@buildweb-id.com 
+2013-10-25 2:27:54 - INFO --> From: ChitChat (chitchat@builweb-id.com) 
+2013-10-25 2:27:54 - INFO --> To: Riya (riyapanwar@gmail.com),  
+2013-10-25 2:27:54 - INFO --> CC:  
+2013-10-25 2:27:54 - INFO --> BCC:  
+2013-10-25 2:27:54 - INFO --> Subject: Welcome!!! You have signed up for ChitChat 
+2013-10-25 2:27:54 - INFO --> Body: <h1>Hi <br />
+<b>Notice</b>:  Trying to get property of non-object in <b>/Users/reenuchahal/Sites/CSCIE-15-Final-Projects/p2.buildweb-id.com/views/v_users_email_welcome.php</b> on line <b>1</b><br />
+</h1>
+ 
+2013-10-25 2:29:23 - INFO --> -------------------------- 
+2013-10-25 2:29:23 - INFO --> Controller/Method: users/p_signup 
+2013-10-25 2:29:23 - INFO --> OUTGOING EMAILS ARE DISABLED. THIS EMAIL WAS NOT SENT TO THE RECIPIENTS, ONLY admin.chitchat@buildweb-id.com 
+2013-10-25 2:29:23 - INFO --> From: ChitChat (chitchat@builweb-id.com) 
+2013-10-25 2:29:23 - INFO --> To: Reenu (reenupanwar@gmail.com),  
+2013-10-25 2:29:23 - INFO --> CC:  
+2013-10-25 2:29:23 - INFO --> BCC:  
+2013-10-25 2:29:23 - INFO --> Subject: Welcome!!! You have signed up for ChitChat 
+2013-10-25 2:29:23 - INFO --> Body: <h1>Hi <br />
+<b>Notice</b>:  Trying to get property of non-object in <b>/Users/reenuchahal/Sites/CSCIE-15-Final-Projects/p2.buildweb-id.com/views/v_users_email_welcome.php</b> on line <b>1</b><br />
+</h1>
+ 

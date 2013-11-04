@@ -36,6 +36,9 @@ input, table {
 	min-height:450px;
 	margin-top: 100px;
 }
+.delete-btn {
+	padding-right:20px;
+}
 
 .error {
 	color: red;
