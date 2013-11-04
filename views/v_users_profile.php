@@ -12,6 +12,7 @@
 		<b>City:</b> <?=$location['city'];?><br/><br/>
 		</p>
 	</div><!-- / .col-md-offset-1 .col-xs-12 .col-sm-6 .col-md-5 -->
+	
 	<div class="col-md-offset-1 col-xs-6 col-sm-5 col-md-4">
 			<?php if($user->profile_image): ?>
 				<img  class="img-responsive img-thumbnail" src="/uploads/avatars/<?=$user->profile_image?>" /><br/><br/>
@@ -64,8 +65,8 @@
 				</div>
 			</div>
 		</form>
-	</div>
-</div>
+	</div><!-- /.col-md-offset-1 /.col-xs-12 /.col-sm-6 /.col-md-5 -->
+</div><!-- / .row -->
 
 
                         

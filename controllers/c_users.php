@@ -7,31 +7,37 @@ class users_controller extends base_controller {
 	}
 	
 	public function index() {
-		echo "This is the index page.<br/>";
-		echo Time::now();
 		
+		# Route to profile page
+		Router::redirect("/users/profile");
 	}
 	
-	public function signup($error = NULL){
+	public function signup($error = NULL) {
+		
+		# Set View
 		$this->template->content = View::instance('v_users_signup');
+		
+		# Set Page Title
 		$this->template->title = "Sign Up";
+		
+		# Pass error data to the view
 		$this->template->content->error = $error;
+		
+		# Render View
 		echo $this->template;
 	}
 	
-	/*
-	public function welcome(){
-		if (!$this->user){
-		$this->template->content = View::instance('v_users_welcome');
+	
+	public function welcome_email() {
+		
+		$this->template->content = View::instance('v_users_email_welcome');
 		$this->template->title = "Welcome To ChitChat";
 		echo $this->template;
-		} else {
-			Router::redirect("/");
-		}
 	}
-	*/
-	public function p_signup(){
+	
+	public function p_signup() {
 		
+		# Build the Query
 		$q = "SELECT token
         FROM users
         WHERE email = '".$_POST['email']."'
@@ -48,42 +54,51 @@ class users_controller extends base_controller {
 			
 		} else {
 		
-		# More data we want stored with the user
-		$_POST['created']  = Time::now();
-		$_POST['modified'] = Time::now();
-		
-		# Encrypt the password
-		$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-		
-		# Create an encrypted token via their email address and a random string
-		$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
-		
-		# Insert all $_POST Info to database-> users table
-		DB::instance(DB_NAME)->insert('users', $_POST);
-		
-		# Set to, from, subject and body for a Welcome Email
-		$to[]    = Array("name" => $_POST['first_name'], "email" => $_POST['email']);
-		$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
-		$subject = "Welcome!!! You have signed up for ChitChat";
-		$body = View::instance('v_users_email_welcome');
-		
-		# Send Welcome email
-		$email = Email::send($to, $from, $subject, $body, true, '');
-		
-		# Route to login Page
-		Router::redirect("/users/login/");
+			# More data we want stored with the user
+			$_POST['created']  = Time::now();
+			$_POST['modified'] = Time::now();
+			
+			# Encrypt the password
+			$_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+			
+			# Create an encrypted token via their email address and a random string
+			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+			
+			# Insert all $_POST Info to database-> users table
+			DB::instance(DB_NAME)->insert('users', $_POST);
+			
+			# Set to, from, subject and body for a Welcome Email
+			$to[]    = Array("name" => $_POST['first_name'], "email" => $_POST['email']);
+			$from    = Array("name" => APP_NAME, "email" => APP_EMAIL);
+			$subject = "Welcome!!! You have signed up for ChitChat";
+			$body = View::instance('v_users_email_welcome');
+			
+			# Send Welcome email
+			$email = Email::send($to, $from, $subject, $body, true, '');
+			
+			# Route to login Page
+			Router::redirect("/users/login/");
 		}
 	}
 	
 	public function login($error = NULL) {
+		
+		# Set View
 		$this->template->content = View::instance('v_users_login');
+		
+		# Set Error
 		$this->template->content->error = $error;
+		
+		# Set Title
 		$this->template->title = "Login";
+		
+		# Render View
 		echo $this->template;
 	}
 	
 	
-	public function p_login(){
+	public function p_login() {
+		
 		# Sanitize the user entered data
 		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
 		
@@ -96,6 +111,8 @@ class users_controller extends base_controller {
 				FROM users
 				WHERE email = '".$_POST['email']."' 
         		AND password = '".$_POST['password']."'";
+		
+		# Find Match
 		$token = DB::instance(DB_NAME)->select_field($q);
 		
 		# If we didn't find a matching token in the database, it means login failed
@@ -103,10 +120,10 @@ class users_controller extends base_controller {
            
 			# Send them back to the login page
 			Router::redirect("/users/login/error");
+
+		# if we found the Match, login succeeded!
+		} else {
 			
-		}
-		# But if we did, login succeeded!
-		else {
 			#set cookie
 			setcookie("token", $token, strtotime('+1 year'), '/');
 			
@@ -115,7 +132,6 @@ class users_controller extends base_controller {
 			Router::redirect("/posts/add");
 		}
 	}
-	
 	
 	public function logout() {
 	
@@ -134,7 +150,6 @@ class users_controller extends base_controller {
 	
 	    # Send them back to the main index.
 	    Router::redirect("/");
-	
 	}
 	
 	public function profile($error = NULL) {
@@ -181,7 +196,6 @@ class users_controller extends base_controller {
 		
 		# Render View
 		echo $this->template;
-		
 	}
 	
 	public function p_profile() {
@@ -202,6 +216,8 @@ class users_controller extends base_controller {
 		$upload = Upload::upload($_FILES, "/uploads/avatars/", array("jpg", "jpeg", "gif", "png"), $new_file_name);
 		
 		if(isset($upload)){
+			
+			# Build a Query
 			$q = "UPDATE users
                   SET profile_image = '".$upload."'
                   WHERE email = '".$this->user->email."'
@@ -234,46 +250,49 @@ class users_controller extends base_controller {
 		# Run the command
 		# DB::instance(DB_NAME)->query($q); 
 		
+		# Route to profle page
 		Router::redirect("/users/profile/");
 	}
 	
 	public function findfriends() {
+		
 		# Make sure user is logged in
 		if(!$this->user) {
+			
+			# Route to Login page
 			Router::redirect("/users/login");
+			
 		} else {
 		
-		# Setup view
-		$this->template->content = View::instance('v_users_find_friends');
-		$this->template->title = "Find Friends";
-		
-		# Build the query
-		$q = "SELECT *
-			  FROM users
-              "; 
-		
-		#WHERE email != '".$this->user->email."'
-		
-		# Run the query
-		$users = DB::instance(DB_NAME)->select_rows($q);
-		
-		
-		# Who are they following
-		$q = "SELECT *
-			  From users_users
-			  WHERE user_id = '".$this->user->user_id."'
-				";
-		
-		# Store our results (an array) in the variable $connections
-		$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
-		
-		# Pass data to the View
-		$this->template->content->users = $users;
-		$this->template->content->connections = $connections;
-		
-		# Render the View
-		echo $this->template;
-		
+			# Setup view
+			$this->template->content = View::instance('v_users_find_friends');
+			$this->template->title = "Find Friends";
+			
+			# Build the query
+			$q = "SELECT *
+				  FROM users
+	              "; 
+			
+			#WHERE email != '".$this->user->email."'
+			
+			# Run the query
+			$users = DB::instance(DB_NAME)->select_rows($q);
+			
+			# Who are they following
+			$q = "SELECT *
+				  From users_users
+				  WHERE user_id = '".$this->user->user_id."'
+					";
+			
+			# Store our results (an array) in the variable $connections
+			$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
+			
+			# Pass data to the View
+			$this->template->content->users = $users;
+			$this->template->content->connections = $connections;
+			
+			# Render the View
+			echo $this->template;
 		}
 	}
 }
