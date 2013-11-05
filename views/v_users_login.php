@@ -1,9 +1,10 @@
-<form  method="POST" action="/users/p_login">
-	<div class="form-group row">
+<div class="row">
+	<form  method="POST" action="/users/p_login">
 		<div class="col-md-offset-1 col-xs-12 col-sm-6 col-md-5">
 			<h1>Login for ChitChat</h1><br/>
 			<p>Follow your friends and their breaking news. Don't have an account on ChitChat? <a href="/users/signup">Signup here.</a></p><br/>
-		</div>
+		</div> <!-- / .col-md-offset-1 .col-xs-12 .col-sm-6 .col-md-5 -->
+		
 		<div class="col-md-offset-1 col-xs-8 col-sm-6 col-md-4">
 			<label for="loginEmail">Email</label>
 			<input class="form-control" placeholder="Enter email" id="loginEmail" type="text" name="email" required><br/>
@@ -14,8 +15,9 @@
 			<?php if(isset($error)): ?>
 				<p class="error"> Login failed. <br/>Please double check your email and password.</p>
 			<?php endif; ?>
+			
 			<button type="submit" class="btn btn-default">Log in</button>
 		</div><!-- /.col-md-offset-1 .col-xs-8 .col-sm-6 .col-md-4 -->
-	</div>
-</form>
+	</form>
+</div><!-- / .row -->
 	
