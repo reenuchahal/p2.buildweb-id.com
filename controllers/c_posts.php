@@ -40,9 +40,9 @@ class posts_controller extends base_controller {
 		
 		#Build the Query for Post Connection
 		$q = "SELECT post_id
-				FROM likes
-				WHERE user_id ='".$this->user->user_id."'
-				  ";
+			FROM likes
+			WHERE user_id ='".$this->user->user_id."'
+			";
 		
 		# Store our results (an array) in the variable $connections
 		$connections = DB::instance(DB_NAME)->select_array($q, 'post_id');
@@ -50,9 +50,9 @@ class posts_controller extends base_controller {
 		
 		#Build the Query to count the number of likes for posts
 		$q = "SELECT post_id, count(post_id) as count
-				FROM likes
-				GROUP BY post_id
-				ORDER BY 1";
+			FROM likes
+			GROUP BY post_id
+			ORDER BY 1";
 		
 		# Store our results (an array) in the variable $count
 		$count = DB::instance(DB_NAME)->select_array($q, 'post_id');
@@ -151,9 +151,9 @@ class posts_controller extends base_controller {
 		
 		#Build the Query
   		$q = "SELECT content
-				FROM posts
-				WHERE post_id = '".$post_id_edit."'
-			  ";
+			FROM posts
+			WHERE post_id = '".$post_id_edit."'
+			";
   		
   		#Run the Query
   		$edit_content = DB::instance(DB_NAME)->select_rows($q);
