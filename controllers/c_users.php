@@ -166,26 +166,6 @@ class users_controller extends base_controller {
 		# Get Location using IP Address
 		$this->template->content->location = Geolocate::geoplugin($ip);
 		
-		# Get Profile specific CSS for Head
-		$client_files_head = Array(
-				'/css/editable-bootstrap/bootstrap-editable.css',
-				'/css/editable-bootstrap/css/bootstrap.css'
-				);
-		
-		# Set Profile specific CSS for Head
-		$this->template->client_files_head = Utils::load_client_files($client_files_head);
-		
-		# Get Profile specific JS for body
-		$client_files_body = Array(
-				'/js/old-bootstrap/bootstrap.min.js',
-				'/js/bootstrap-editable.min.js',
-				'/js/jquery.mockjax.js',
-				'/js/script.js'
-				);
-		
-		# Set Profile specific JS for body
-		$this->template->client_files_body = Utils::load_client_files($client_files_body);
-		
 		# Render View
 		echo $this->template;
 	}

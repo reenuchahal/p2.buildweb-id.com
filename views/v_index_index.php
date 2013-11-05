@@ -28,7 +28,6 @@
 		<h1>Other Features</h1>
 		<p>1. Use of active class to show which page the user is currently on</p>
 		<p>2. Use of Bootstrap. Responsive Design.</p>
-		<p>3. Use of editable bootstap to edit the user's profile (attempted)</p>
 	</div>
 </div>
 

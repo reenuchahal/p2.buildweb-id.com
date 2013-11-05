@@ -6,6 +6,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
 	
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/uploads/favicon.ico">
+	
 	<!-- CSS-->
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 	<link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" media="screen">
