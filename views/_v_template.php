@@ -26,6 +26,7 @@
 
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
+		
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -40,17 +41,29 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li <?php if(basename($_SERVER['REQUEST_URI']) == NULL): ?> class="active" <?php endif; ?>><a href='/'>Home</a></li>
+					<li <?php if(basename($_SERVER['REQUEST_URI']) == NULL): ?> class="active" <?php endif; ?>>
+						<a href='/'>Home</a>
+					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if($user): ?>
-						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'add'): ?> class="active" <?php endif; ?>><a href='/posts/add'>News Feed</a></li>
-						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'findfriends'): ?> class="active" <?php endif; ?>><a href='/users/findfriends'>@ Connect</a></li>
-						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'profile'): ?> class="active" <?php endif; ?>><a href='/users/profile'><?=$user->first_name?> <?=$user->last_name?></a></li>
+						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'add'): ?> class="active" <?php endif; ?>>
+							<a href='/posts/add'>News Feed</a>
+						</li>
+						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'findfriends'): ?> class="active" <?php endif; ?>>
+							<a href='/users/findfriends'>@ Connect</a>
+						</li>
+						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'profile'): ?> class="active" <?php endif; ?>>
+							<a href='/users/profile'><?=$user->first_name?> <?=$user->last_name?></a>
+						</li>
 						<li><a href='/users/logout'>Logout</a></li>
 					<?php else: ?>
-						<li <?php if(basename($_SERVER['REQUEST_URI']) == 'signup'): ?> class="active" <?php endif; ?>><a href='/users/signup'>Sign up</a></li>
-						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'login'): ?> class="active" <?php endif; ?>><a href='/users/login'>Log in</a></li>  
+						<li <?php if(basename($_SERVER['REQUEST_URI']) == 'signup'): ?> class="active" <?php endif; ?>>
+							<a href='/users/signup'>Sign up</a>
+						</li>
+						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'login'): ?> class="active" <?php endif; ?>>
+							<a href='/users/login'>Log in</a>
+						</li>  
 					<?php endif; ?>
 				</ul>
 			</div><!-- /.navbar-collapse -->
@@ -66,12 +79,11 @@
 			</div>
 		</footer><!-- / footer Ends-->
 		
-		
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<!-- Common Javascripts -->
 		<script src="/js/jquery-1.8.2.min.js"></script>
-		
-		<!-- Bootstap javascript -->
 		<script src="/js/bootstrap.min.js"></script>
+		
+		<!-- Controller Specific JS -->
 		<?php if(isset($client_files_body)) echo $client_files_body; ?>
 	</body>
 </html>

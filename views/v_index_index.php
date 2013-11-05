@@ -13,7 +13,7 @@
 <?php endif; ?>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-8">
-		<img class="img-responsive" src="/uploads/people.png" /><br/>
+		<img class="img-responsive" src="/uploads/people.png" alt="ChitChat Landing Page Image"/><br/>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4">
 		<h1>+1 Features</h1>
