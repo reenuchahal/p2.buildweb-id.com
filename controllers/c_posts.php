@@ -122,9 +122,9 @@ class posts_controller extends base_controller {
 		
 		#Prepare the data array to be inserted
 		$data = Array(
-		"liked" => Time::now(),
-		"user_id" => $this->user->user_id,
-		"post_id" => $post_id_like
+			"liked" => Time::now(),
+			"user_id" => $this->user->user_id,
+			"post_id" => $post_id_like
 		);
 	
 		# Insert Like this connection
