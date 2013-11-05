@@ -128,7 +128,6 @@ class posts_controller extends base_controller {
 		);
 	
 		# Insert Like this connection
-	
 		DB::instance(DB_NAME)->insert('likes', $data);
 		
 
@@ -150,7 +149,7 @@ class posts_controller extends base_controller {
 	public function edit($post_id_edit) {
 		
 		#Build the Query
-  		$q = "SELECT content
+		$q = "SELECT content
 			FROM posts
 			WHERE post_id = '".$post_id_edit."'
 			";
@@ -171,7 +170,7 @@ class posts_controller extends base_controller {
 	public function p_edit($post_id_edit){
 		
 		#Build the Query
-  		$q = "UPDATE posts
+		$q = "UPDATE posts
 			SET content = '".$_POST['content']."',
 			modified = '".Time::now()."'
 			WHERE post_id = '".$post_id_edit."'
