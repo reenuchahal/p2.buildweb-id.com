@@ -20,21 +20,20 @@ class posts_controller extends base_controller {
 		$this->template->title = "News Feed";
 		
 		#Build the Query
-		$q ='SELECT
-				posts.post_id,
-				posts.content,
-				posts.created,
-				posts.user_id AS post_user_id,
-				users_users.user_id AS follower_id,
-				users.first_name,
-				users.last_name
-        	FROM posts
-			INNER JOIN users_users
-            ON posts.user_id = users_users.user_id_followed
-        	INNER JOIN users
-            ON posts.user_id = users.user_id
-			WHERE users_users.user_id = '.$this->user->user_id.' 
-			ORDER BY posts.created DESC';
+		$q ='SELECT posts.post_id,
+					posts.content,
+					posts.created,
+					posts.user_id AS post_user_id,
+					users_users.user_id AS follower_id,
+					users.first_name,
+					users.last_name
+	        	FROM posts
+				INNER JOIN users_users
+	            ON posts.user_id = users_users.user_id_followed
+	        	INNER JOIN users
+	            ON posts.user_id = users.user_id
+				WHERE users_users.user_id = '.$this->user->user_id.' 
+				ORDER BY posts.created DESC';
 		
 		#Run the Query
 		$posts = DB::instance(DB_NAME)->select_rows($q);
@@ -173,10 +172,10 @@ class posts_controller extends base_controller {
 		
 		#Build the Query
   		$q = "UPDATE posts
-  				SET content = '".$_POST['content']."',
-  				modified = '".Time::now()."'
-				WHERE post_id = '".$post_id_edit."'
-         	  ";
+			SET content = '".$_POST['content']."',
+			modified = '".Time::now()."'
+			WHERE post_id = '".$post_id_edit."'
+			";
   	
   		# Run the command
   		DB::instance(DB_NAME)->query($q);
