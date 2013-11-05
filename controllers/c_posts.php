@@ -41,8 +41,8 @@ class posts_controller extends base_controller {
 		
 		#Build the Query for Post Connection
 		$q = "SELECT post_id
-				  FROM likes
-				Where user_id ='".$this->user->user_id."'
+				FROM likes
+				WHERE user_id ='".$this->user->user_id."'
 				  ";
 		
 		# Store our results (an array) in the variable $connections
@@ -152,8 +152,8 @@ class posts_controller extends base_controller {
 		
 		#Build the Query
   		$q = "SELECT content
-			  FROM posts
-			  WHERE post_id = '".$post_id_edit."'
+				FROM posts
+				WHERE post_id = '".$post_id_edit."'
 			  ";
   		
   		#Run the Query
@@ -173,9 +173,9 @@ class posts_controller extends base_controller {
 		
 		#Build the Query
   		$q = "UPDATE posts
-			  SET content = '".$_POST['content']."',
-          	  modified = '".Time::now()."'
-              WHERE post_id = '".$post_id_edit."'
+  				SET content = '".$_POST['content']."',
+  				modified = '".Time::now()."'
+				WHERE post_id = '".$post_id_edit."'
          	  ";
   	
   		# Run the command
