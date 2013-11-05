@@ -31,9 +31,9 @@ class users_controller extends base_controller {
 		
 		# Build the Query
 		$q = "SELECT token
-        FROM users
-        WHERE email = '".$_POST['email']."'
-       ";
+			FROM users
+			WHERE email = '".$_POST['email']."'
+			";
 		
 		# Find Match
 		$token = DB::instance(DB_NAME)->select_field($q);
@@ -100,9 +100,10 @@ class users_controller extends base_controller {
 		# Search the db for this email and password
 		# Retrieve the token if it's available
 		$q = "SELECT token
-				FROM users
-				WHERE email = '".$_POST['email']."' 
-        		AND password = '".$_POST['password']."'";
+			FROM users
+			WHERE email = '".$_POST['email']."' 
+			AND password = '".$_POST['password']."'
+			";
 		
 		# Find Match
 		$token = DB::instance(DB_NAME)->select_field($q);
@@ -148,8 +149,10 @@ class users_controller extends base_controller {
 		
 		# If user is not logged in; redirect it to the login page
 		if(!$this->user) {
+			
+			# If user is not logged in, route to login page
 			Router::redirect('/users/login');
-			}
+		}
 		
 		# Set View
 		$this->template->content = View::instance('v_users_profile');
@@ -177,8 +180,12 @@ class users_controller extends base_controller {
 		
 		# Get Uploaded file name without extension
 		if (!basename($_FILES['profile_image']['name']) == NULL){
-		$new_file_name = preg_replace("/\\.[^.]*$/", "",basename($_FILES['profile_image']['name']));
+			
+			$new_file_name = preg_replace("/\\.[^.]*$/", "",basename($_FILES['profile_image']['name']));
+		
 		} else {
+			
+			# otherwise route to error
 			Router::redirect("/users/profile/error");
 		}
 		
@@ -192,10 +199,10 @@ class users_controller extends base_controller {
 			
 			# Build a Query
 			$q = "UPDATE users
-                  SET profile_image = '".$upload."'
-                  WHERE email = '".$this->user->email."'
-                  ";
-			
+				SET profile_image = '".$upload."'
+				WHERE email = '".$this->user->email."'
+				";
+				
 			# Run the command
 			DB::instance(DB_NAME)->query($q);
 			
@@ -211,28 +218,12 @@ class users_controller extends base_controller {
 	
 	}
 	
-	public function p_profile_update(){
-		/*
-		# Build a Query
-		$q = "UPDATE users
-              SET first_name = '".$_POST['name']."'
-              WHERE email = '".$this->user->email."'";
-		*/
-		
-		# Run the command
-		# DB::instance(DB_NAME)->query($q); 
-		
-		# Message about underconstruction feature
-		echo "Under Construction, Try Later";
-		
-	}
-	
 	public function findfriends() {
 		
 		# Make sure user is logged in
 		if(!$this->user) {
 			
-			# Route to Login page
+			# If not, Route to Login page
 			Router::redirect("/users/login");
 			
 		} else {
@@ -243,19 +234,17 @@ class users_controller extends base_controller {
 			
 			# Build the query
 			$q = "SELECT *
-				  FROM users
-	              "; 
-			
-			#WHERE email != '".$this->user->email."'
+				FROM users
+				"; 
 			
 			# Run the query
 			$users = DB::instance(DB_NAME)->select_rows($q);
 			
 			# Who are they following
 			$q = "SELECT *
-				  From users_users
-				  WHERE user_id = '".$this->user->user_id."'
-					";
+				From users_users
+				WHERE user_id = '".$this->user->user_id."'
+				";
 			
 			# Store our results (an array) in the variable $connections
 			$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
