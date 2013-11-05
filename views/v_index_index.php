@@ -1,15 +1,19 @@
 <?php if($user): ?>
 	<div class="row">
+	
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<h1>Welcome to <?=APP_NAME?><?php if($user) echo ', '.$user->first_name; ?></h1><br/>
 		</div><!-- / .col-xs-12 .col-sm-12 .col-md-12 -->
+		
 	</div><!-- / .row -->
 <?php endif; ?>
 
 <div class="row">
+
 	<div class="col-xs-12 col-sm-12 col-md-8">
 		<img class="img-responsive" src="/uploads/people.png" alt="ChitChat Landing Page Image"/><br/>
 	</div><!-- / .col-xs-12 .col-sm-12 .col-md-8-->
+	
 	<div class="col-xs-12 col-sm-12 col-md-4">
 		<h1>+1 Features</h1>
 		<p>1. Email confirmation upon sign-up</p>
@@ -24,6 +28,7 @@
 		<p>1. Use of active class to show which page the user is currently on</p>
 		<p>2. Use of Bootstrap. Responsive Design.</p>
 	</div><!-- / .col-xs-12 .col-sm-12 .col-md-4 -->
+	
 </div><!-- / .row -->
 
 
