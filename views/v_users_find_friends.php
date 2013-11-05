@@ -8,9 +8,9 @@
 			
 			<?php foreach($users as $user): ?>
 				<tr <?php if ($loggedInUser == $user['user_id']): ?> class="active" <?php endif; ?>>
-					<td width="50%"><?=$user['first_name']?> <?=$user['last_name']?> <td>
+					<td class="follow-width"><?=$user['first_name']?> <?=$user['last_name']?> <td>
 					<!-- If there exists a connection with this user, show a unfollow link -->
-					<td width="50%">
+					<td class="follow-width">
 					
 					    <?php if(isset($connections[$user['user_id']])  ): ?>
 							<a href='/posts/unfollow/<?=$user['user_id']?>' class="btn btn-danger">Unfollow</a>

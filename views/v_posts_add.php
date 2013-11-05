@@ -33,7 +33,7 @@
 					<a href='/posts/like/<?=$post['post_id']?>' class="btn btn-default btn-xs">Like</a>
 				<?php endif; ?>
 				<?php if(isset($count[$post['post_id']]['count'])): ?>
-				 	<img src="/uploads/Facebook-Thumbs-Up.jpg" /> (<?php echo $count[$post['post_id']]['count'] ?>)
+				 	<img src="/uploads/Facebook-Thumbs-Up.jpg" alt="facebook thumbs up"/> (<?php echo $count[$post['post_id']]['count'] ?>)
 				<?php endif; ?>
 			</div><!-- / .text-right -->
 		</div>

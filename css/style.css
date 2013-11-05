@@ -68,8 +68,13 @@ input, table {
 	padding:10px;
 }
 
+.follow-width {
+	width:50%;
+}
 
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+
+.navbar-inverse .navbar-brand:hover, 
+.navbar-inverse .navbar-brand:focus {
 color: #999;
 }
 

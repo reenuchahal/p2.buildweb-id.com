@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-md-offset-1 col-xs-12 col-sm-5 col-md-5">
 		<?php if($user->profile_image): ?>
-			<img  class="img-responsive img-thumbnail" src="/uploads/avatars/<?=$user->profile_image?>" /><br/><br/>
+			<img  class="img-responsive img-thumbnail" alt="<?=$user->first_name?>_profile_image" src="/uploads/avatars/<?=$user->profile_image?>" /><br/><br/>
 		<?php else: ?>
-			<img  class="img-responsive img-thumbnail" src="/uploads/placeholder_200_200.png" /><br/><br/>
+			<img  class="img-responsive img-thumbnail" alt="placeholder_image" src="/uploads/placeholder_200_200.png" /><br/><br/>
 		<?php endif; ?>
 	</div><!-- / .col-md-offset-1 .col-xs-12 .col-sm-5 .col-md-5 -->
 	
@@ -20,7 +20,7 @@
 		<br/>
 		<form enctype="multipart/form-data" method="POST" action="/users/p_profile">
 			<label for="imageInputFile">Upload your profile image here</label>
-		    <input type="file" name="profile_image" required><br/>
+		    <input id="imageInputFile" type="file" name="profile_image" required><br/>
 			
 			<?php if(isset($error)): ?>
 				<p class="error"> There was an error uploading the file, please try again!</p>
