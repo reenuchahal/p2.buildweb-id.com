@@ -54,23 +54,40 @@ $(function(){
     });        
   
     
-//    $.fn.editable.defaults.url = 'error.php'; 
-    $.fn.editable.defaults.url = 'post.php'; 
+//  $.fn.editable.defaults.url = 'error.php'; 
+    $.fn.editable.defaults.url = '/users/p_profile_update'; 
 
     $('#username').editable({
-                           url: 'post.php',
+                           url: '/users/p_profile_update',
                            type: 'text',
                            pk: 1,
-                           name: 'username',
+                           name: $('#username').val(),
                            title: 'Enter username'
     });
     
+  //firstname input
     $('#firstname').editable({
-                           url: 'post.php',
-                           type: 'text',
+                           url: '/users/p_profile_update',
+                           type: 'POST',
                            pk: 1,
-                           name: 'first_name',
-                           title: 'Enter username'
+                           dataType: 'json',
+                           name: $('#firstname').val(),
+                           title: 'Enter First Name',
+                           success: function(name){
+                        	   console.log(name);
+                               alert(name);
+                               
+                               //or if the data is JSON
+                               var jdata = jQuery.parseJSON(name);
+                           }
+    });
+    
+    $('#lastname').editable({
+        url: '/users/p_profile_update',
+        type: 'text',
+        pk: 1,
+        name: $('#lastname').val(),
+        title: 'Enter Last Name'
     });
     
     $('#firstname').editable({
@@ -78,7 +95,8 @@ $(function(){
            if($.trim(value) == '') return 'This field is required';
         }
     });
-    $('#lastname').editable();
+    
+   // $('#lastname').editable();
     
     $('#sex').editable({
         source:{

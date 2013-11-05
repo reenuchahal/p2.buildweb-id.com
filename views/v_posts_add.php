@@ -21,12 +21,21 @@
 			<time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
 				<?=Time::display($post['created'])?>
 			</time>
-			<?php if($post['first_name'] == $loggedInUser): ?>
+			
 			<div class="text-right delete-btn">
-				<a href="/posts/delete/<?=$post['post_id']?>" class="btn btn-danger" >Delete</a>
-				<a href="/posts/edit/<?=$post['post_id']?>" class="btn btn-default" >Edit</a>
-			</div>
-			<?php endif; ?>
+				<?php if($post['first_name'] == $loggedInUser): ?>
+					<a href="/posts/delete/<?=$post['post_id']?>" class="btn btn-danger btn-xs" >Delete</a>
+					<a href="/posts/edit/<?=$post['post_id']?>" class="btn btn-default btn-xs" >Edit</a>
+				<?php endif; ?>
+				<?php if(isset($connections[$post['post_id']])): ?>
+					<a href='/posts/unlike/<?=$post['post_id']?>' class="btn btn-default btn-xs">Unlike</a>
+				<?php else: ?>			
+					<a href='/posts/like/<?=$post['post_id']?>' class="btn btn-default btn-xs">Like</a>
+				<?php endif; ?>
+				<?php if(isset($count[$post['post_id']]['count'])): ?>
+				 	<img src="/uploads/Facebook-Thumbs-Up.jpg" /> (<?php echo $count[$post['post_id']]['count'] ?>)
+				<?php endif; ?>
+			</div><!-- / .text-right -->
 		</div>
 	</div>
 </div>

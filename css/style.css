@@ -26,6 +26,8 @@ input, table {
 	font-size:14px;
 }
 
+
+
 /* All Class rules here*/
 
 .avatar {
@@ -66,7 +68,23 @@ input, table {
 	padding:10px;
 }
 
+img.profile-image {
+position:absolute;
+clip:rect(0px,400px,300px,0px);
+border:1px solid #ffffff;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+color: #999;
+}
+
 .warning {
 	font-size:14px;
 }
 
+/* Small Screen Styles here*/
+@media (max-width: 769px) {
+	.profile-top-margin {
+		margin-top:300px
+	}
+}

@@ -27,14 +27,6 @@ class users_controller extends base_controller {
 		echo $this->template;
 	}
 	
-	
-	/*public function welcome_email() {
-		
-		$this->template->content = View::instance('v_users_email_welcome');
-		$this->template->title = "Welcome To ChitChat";
-		echo $this->template;
-	}*/
-	
 	public function p_signup() {
 		
 		# Build the Query
@@ -209,6 +201,7 @@ class users_controller extends base_controller {
 		} else {
 			Router::redirect("/users/profile/error");
 		}
+		
 		# Assign created random number to file.
 		$new_file_name = md5($rand_val);
 		
@@ -239,19 +232,19 @@ class users_controller extends base_controller {
 	}
 	
 	public function p_profile_update(){
-		
-		
-		/*$q = "UPDATE users
-              SET first_name = '".$_REQUEST['firstname']."'
+		/*
+		# Build a Query
+		$q = "UPDATE users
+              SET first_name = '".$_POST['name']."'
               WHERE email = '".$this->user->email."'";
-			
 		*/
 		
 		# Run the command
 		# DB::instance(DB_NAME)->query($q); 
 		
-		# Route to profle page
-		Router::redirect("/users/profile/");
+		# Message about underconstruction feature
+		echo "Under Construction, Try Later";
+		
 	}
 	
 	public function findfriends() {

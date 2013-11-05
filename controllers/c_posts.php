@@ -39,8 +39,29 @@ class posts_controller extends base_controller {
 		#Run the Query
 		$posts = DB::instance(DB_NAME)->select_rows($q);
 		
+		#Build the Query for Post Connection
+		$q = "SELECT post_id
+				  FROM likes
+				Where user_id ='".$this->user->user_id."'
+				  ";
+		
+		# Store our results (an array) in the variable $connections
+		$connections = DB::instance(DB_NAME)->select_array($q, 'post_id');
+		
+		
+		#Build the Query to count the number of likes for posts
+		$q = "SELECT post_id, count(post_id) as count
+				FROM likes
+				GROUP BY post_id
+				ORDER BY 1";
+		
+		# Store our results (an array) in the variable $count
+		$count = DB::instance(DB_NAME)->select_array($q, 'post_id');
+		
 		# Pass data to the view
 		$this->template->content->posts = $posts;
+		$this->template->content->connections = $connections;
+		$this->template->content->count = $count;
 		
 		# Render the view
 		echo $this->template;
@@ -97,6 +118,35 @@ class posts_controller extends base_controller {
 		# Send them back
 		Router::redirect("/posts/add");
 	}
+	
+	public function like($post_id_like) {
+		
+		#Prepare the data array to be inserted
+		$data = Array(
+		"liked" => Time::now(),
+		"user_id" => $this->user->user_id,
+		"post_id" => $post_id_like
+		);
+	
+		# Insert Like this connection
+	
+		DB::instance(DB_NAME)->insert('likes', $data);
+		
+
+		# Send them back
+		Router::redirect("/posts/add");
+	}
+	
+	public function unlike($post_id_like) {
+	
+		# Delete this connection
+		$where_condition = 'WHERE user_id = '.$this->user->user_id.' AND post_id = '.$post_id_like;
+		DB::instance(DB_NAME)->delete('likes', $where_condition);
+	
+		# Send them back
+		Router::redirect("/posts/add");
+	}
+	
 	
 	public function edit($post_id_edit) {
 		

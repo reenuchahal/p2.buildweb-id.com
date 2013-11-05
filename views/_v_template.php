@@ -31,7 +31,7 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </button>
-	    <a class="navbar-brand" href="#">ChitChat</a>
+	    <p class="navbar-brand " >ChitChat</p> 
 	  </div>
 	
 	  <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,8 +63,10 @@
 		</div>
 	</footer><!-- / footer Ends-->
 	
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/jquery-1.8.2.min.js"></script>
+	
 	<!-- Bootstap javascript -->
     <script src="/js/bootstrap.min.js"></script>
    	 <?php if(isset($client_files_body)) echo $client_files_body; ?>
