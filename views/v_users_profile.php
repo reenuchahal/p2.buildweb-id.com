@@ -25,7 +25,7 @@
 		
 		<form enctype="multipart/form-data" method="POST" action="/users/p_profile">
 			<label for="imageInputFile">Upload your profile image here</label>
-		    <input id="imageInputFile" type="file" name="profile_image" required><br/>
+			<input id="imageInputFile" type="file" name="profile_image" required><br/>
 			
 			<!-- If there is an erro show this -->
 			<?php if(isset($error)): ?>
