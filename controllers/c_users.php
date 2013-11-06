@@ -255,7 +255,6 @@ class users_controller extends base_controller {
 			
 				# Do the insert, user will follow his status by default
 				DB::instance(DB_NAME)->insert('users_users', $data);
-			
 			}
 			
 			# Build the query
