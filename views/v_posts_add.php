@@ -2,7 +2,7 @@
 	<div class="col-md-offset-2 col-xs-12 col-sm-10 col-md-8">
 		<form method="post" action="/posts/p_add">
 			<label for='content'>Update Status</label><br>
-		    <textarea class="form-control" rows="3" name='content' id='content' placeholder="What's on your mind?" required></textarea><br/>
+			<textarea class="form-control" rows="3" name='content' id='content' placeholder="What's on your mind?" required></textarea><br/>
 		    
 		    <div class="text-right">
 		    	<button  type="submit" class="btn btn-primary">Post</button>
