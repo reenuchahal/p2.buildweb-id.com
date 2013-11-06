@@ -1,3 +1,4 @@
+// for p2 this script has not been used
 $(function(){
     //ajax mocks
     $.mockjaxSettings.responseTime = 500; 
@@ -54,7 +55,7 @@ $(function(){
     });        
   
     
-//  $.fn.editable.defaults.url = 'error.php'; 
+    //  $.fn.editable.defaults.url = 'error.php'; 
     $.fn.editable.defaults.url = '/users/p_profile_update'; 
 
     $('#username').editable({

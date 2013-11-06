@@ -26,8 +26,6 @@ input, table {
 	font-size:14px;
 }
 
-
-
 /* All Class rules here*/
 
 .avatar {
@@ -47,6 +45,7 @@ input, table {
 .display-none{
 	display:none;
 }
+
 .error {
 	color: red;
 	font-size:12px;
