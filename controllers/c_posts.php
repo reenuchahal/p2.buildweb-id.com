@@ -13,6 +13,12 @@ class posts_controller extends base_controller {
 		}
 	}
 	
+	public function index() {
+	
+		# Route to profile page
+		Router::redirect("/posts/add");
+	}
+	
 	public function add() {
 		
 		# Setup View

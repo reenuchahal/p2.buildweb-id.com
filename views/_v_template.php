@@ -48,7 +48,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if($user): ?>
-						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'add'): ?> class="active" <?php endif; ?>>
+						<li<?php if((basename($_SERVER['REQUEST_URI']) == 'add') || (basename($_SERVER['REQUEST_URI']) == 'edit')): ?> class="active" <?php endif; ?>>
 							<a href='/posts/add'>News Feed</a>
 						</li>
 						<li<?php if(basename($_SERVER['REQUEST_URI']) == 'findfriends'): ?> class="active" <?php endif; ?>>
