@@ -25,7 +25,10 @@
 			
 			<!-- If there is an error, Show this message -->
 			<?php if(isset($error)): ?>
-				<p class="error">You already have an account. <a href="/users/login">Login here</a></p>
+				<p class="error">
+					Either you did not fill up the full form.<br/>
+					OR You already have an account on ChitChat. <a href="/users/login">Login here</a>
+				</p>
 			<?php endif; ?>
     	
 			<button type="submit" class="btn btn-default">Sign up</button>

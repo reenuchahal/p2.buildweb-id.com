@@ -28,6 +28,17 @@ class users_controller extends base_controller {
 	
 	public function p_signup() {
 		
+		# check for empty first name, last name
+		# email and password
+		if (($_POST['first_name'] == NULL) || 
+			($_POST['last_name']  == NULL) || 
+			($_POST['email'] == NULL ) ||
+			($_POST['password'] == NULL )){
+
+			# Show error
+			Router::redirect("/users/signup/error");
+		}
+		
 		# Build the Query
 		$q = "SELECT token
 			FROM users
@@ -89,6 +100,14 @@ class users_controller extends base_controller {
 	
 	
 	public function p_login() {
+		
+		# check for empty email and password
+		if (($_POST['email'] == NULL ) ||
+		($_POST['password'] == NULL )){
+		
+			# Show error
+			Router::redirect("/users/login/error");
+		}
 		
 		# Sanitize the user entered data
 		$_POST = DB::instance(DB_NAME)->sanitize($_POST);
