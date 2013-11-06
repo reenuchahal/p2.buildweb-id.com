@@ -19,7 +19,8 @@
 		<p>4. User needs a unique email address to sign up for ChitChat.</p>
 		<p>5. User can edit and delete his posts.</p>
 		<p>6. User can like and unlike the post.</p>
-		<p>7. User can see the number of likes for each post</p>
+		<p>7. User can see the number of likes for each post.</p>
+		<p>8. User will follow himself by default.</p>
 		
 		<h1>Other Features</h1>
 		<p>1. Use of active class to show which page the user is currently on</p>

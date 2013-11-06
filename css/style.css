@@ -44,6 +44,9 @@ input, table {
 	padding-right:20px;
 }
 
+.display-none{
+	display:none;
+}
 .error {
 	color: red;
 	font-size:12px;

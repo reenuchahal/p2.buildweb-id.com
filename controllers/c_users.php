@@ -231,6 +231,18 @@ class users_controller extends base_controller {
 			$this->template->content = View::instance('v_users_find_friends');
 			$this->template->title = "Find Friends";
 			
+			# Make the user to follow himself. 
+			# Prepare the data array to be inserted
+			$data = Array(
+				"created" => Time::now(),
+				"user_id" => $this->user->user_id,
+				"user_id_followed" => $this->user->user_id
+			);
+			
+			# Do the insert, user will follow his status
+			DB::instance(DB_NAME)->insert('users_users', $data);
+			
+			
 			# Build the query
 			$q = "SELECT *
 				FROM users
@@ -251,6 +263,7 @@ class users_controller extends base_controller {
 			# Pass data to the View
 			$this->template->content->users = $users;
 			$this->template->content->connections = $connections;
+			
 			
 			# Render the View
 			echo $this->template;
