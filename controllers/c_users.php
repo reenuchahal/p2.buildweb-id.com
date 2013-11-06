@@ -250,32 +250,6 @@ class users_controller extends base_controller {
 			$this->template->content = View::instance('v_users_find_friends');
 			$this->template->title = "Find Friends";
 			
-			# Build the Query to find out user is following himself
-			$q = "SELECT user_id
-				FROM users_users
-				WHERE user_id = '".$this->user->user_id."'
-				AND user_id_followed = '".$this->user->user_id."'
-				";
-				
-			# Find Match
-			$my_user_id = DB::instance(DB_NAME)->select_field($q);
-				
-			# If we do not find a matching user id in the database.
-			#  Insert following information
-			if(!$my_user_id) {
-			
-				# Make the user to follow himself.
-				# Prepare the data array to be inserted
-				$data = Array(
-					"created" => Time::now(),
-					"user_id" => $this->user->user_id,
-					"user_id_followed" => $this->user->user_id
-				);
-			
-				# Do the insert, user will follow his status by default
-				DB::instance(DB_NAME)->insert('users_users', $data);
-			}
-			
 			# Build the query
 			$q = "SELECT *
 				FROM users
