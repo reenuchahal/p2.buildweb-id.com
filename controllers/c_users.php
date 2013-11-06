@@ -13,6 +13,13 @@ class users_controller extends base_controller {
 	
 	public function signup($error = NULL) {
 		
+		# If user is logged in; redirect it to the Profile page
+		if($this->user) {
+				
+			# Route to Profile page
+			Router::redirect('/users/profile');
+		}
+		
 		# Set View
 		$this->template->content = View::instance('v_users_signup');
 		
@@ -84,6 +91,13 @@ class users_controller extends base_controller {
 	}
 	
 	public function login($error = NULL) {
+		
+		# If user is logged in; redirect it to the Profile page
+		if($this->user) {
+		
+			# Route to Profile page
+			Router::redirect('/users/profile');
+		}
 		
 		# Set View
 		$this->template->content = View::instance('v_users_login');
