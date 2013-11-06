@@ -3,10 +3,10 @@
 		<form method="post" action="/posts/p_add">
 			<label for='content'>Update Status</label><br>
 			<textarea class="form-control" rows="3" name='content' id='content' placeholder="What's on your mind?" required></textarea><br/>
-		    
-		    <div class="text-right">
-		    	<button  type="submit" class="btn btn-primary">Post</button>
-		    </div>
+			    
+			<div class="text-right">
+				<button  type="submit" class="btn btn-primary">Post</button>
+			</div>
 		</form>
 		<h1>ChitChat</h1>
 		<br/>
