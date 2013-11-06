@@ -212,11 +212,11 @@ class posts_controller extends base_controller {
 	public function p_edit($post_id_edit){
 		
 		# check for empty content
-		if ($_POST['content'] == NULL ) {
+		#if ($_POST['content'] == NULL ) {
 		
 			# Show error
-			Router::redirect("/posts/add/");
-		}
+			#Router::redirect("/posts/add/");
+		#}
 		
 		#Build the Query
 		$q = "UPDATE posts
