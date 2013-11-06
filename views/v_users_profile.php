@@ -24,6 +24,7 @@
 		</p><br/>
 		
 		<form enctype="multipart/form-data" method="POST" action="/users/p_profile">
+			<!-- Upload Image Here -->
 			<label for="imageInputFile">Upload your profile image here</label>
 			<input id="imageInputFile" type="file" name="profile_image" required><br/>
 			
