@@ -21,10 +21,10 @@ class posts_controller extends base_controller {
 		
 		# Build the Query to find out user is following himself
 		$q = "SELECT user_id
-				FROM users_users
-				WHERE user_id = '".$this->user->user_id."'
-				AND user_id_followed = '".$this->user->user_id."'
-				";
+			FROM users_users
+			WHERE user_id = '".$this->user->user_id."'
+			AND user_id_followed = '".$this->user->user_id."'
+			";
 		
 		# Find Match
 		$my_user_id = DB::instance(DB_NAME)->select_field($q);
