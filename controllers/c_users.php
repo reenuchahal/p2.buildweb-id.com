@@ -8,7 +8,7 @@ class users_controller extends base_controller {
 	public function index() {
 		
 		# Route to @connection page
-		Router::redirect("users/findfriends");
+		Router::redirect("/users/findfriends/");
 	}
 	
 	public function signup($error = NULL) {
