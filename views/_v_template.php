@@ -42,7 +42,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li <?php if(basename($_SERVER['REQUEST_URI']) == NULL): ?> class="active" <?php endif; ?>>
+					<li <?php if((basename($_SERVER['REQUEST_URI']) == NULL) || (basename($_SERVER['REQUEST_URI']) == 'index') ||(basename($_SERVER['REQUEST_URI']) == 'index.php') ): ?> class="active" <?php endif; ?>>
 						<a href='/'>Home</a>
 					</li>
 				</ul>

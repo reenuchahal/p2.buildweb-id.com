@@ -8,7 +8,7 @@ class users_controller extends base_controller {
 	public function index() {
 		
 		# Route to profile page
-		Router::redirect("/users/profile");
+		Router::redirect("/posts/add");
 	}
 	
 	public function signup($error = NULL) {
