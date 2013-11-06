@@ -22,8 +22,8 @@
 			
 				<h3><?=$post['first_name']?> <?=$post['last_name']?></h3>
 				<p><?=$post['content']?></p>
-				<time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-					<?=Time::display($post['created'])?>
+				<time datetime="<?=Time::display($post['created'],'Y-m-d')?>">
+					<?=Time::display($post['created'],'Y-m-d g:i a')?>
 				</time>
 				
 				<div class="text-right delete-btn">
