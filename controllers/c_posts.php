@@ -19,7 +19,7 @@ class posts_controller extends base_controller {
 		Router::redirect("/posts/add");
 	}
 	
-	public function add() {
+	public function add($error = NULL) {
 		
 		# Setup View
 		$this->template->content = View::instance('v_posts_add');
@@ -94,11 +94,21 @@ class posts_controller extends base_controller {
 		$this->template->content->connections = $connections;
 		$this->template->content->count = $count;
 		
+		# Set Error
+		$this->template->content->error = $error;
+		
 		# Render the view
 		echo $this->template;
 	}
 	
 	public function p_add() {
+		
+		# check for empty content
+		if ($_POST['content'] == NULL ) {
+		
+			# Show error
+			Router::redirect("/posts/add/error");
+		}
 		
 		# Associate this post with this user
 		$_POST['user_id'] = $this->user->user_id;
@@ -200,6 +210,13 @@ class posts_controller extends base_controller {
   	}	
   
 	public function p_edit($post_id_edit){
+		
+		# check for empty content
+		if ($_POST['content'] == NULL ) {
+		
+			# Show error
+			Router::redirect("/posts/add/");
+		}
 		
 		#Build the Query
 		$q = "UPDATE posts

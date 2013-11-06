@@ -3,7 +3,14 @@
 		<form method="post" action="/posts/p_add">
 			<label for='content'>Update Status</label><br>
 			<textarea class="form-control" rows="3" name='content' id='content' placeholder="What's on your mind?" required></textarea><br/>
-			    
+			 
+			<!-- If post is Empty, Show this message -->
+			<?php if(isset($error)): ?>
+				<p class="error">
+					Empty posts are not allowed!!!
+				</p>
+			<?php endif; ?>
+			   
 			<div class="text-right">
 				<button  type="submit" class="btn btn-primary">Post</button>
 			</div>
