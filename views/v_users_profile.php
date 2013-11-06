@@ -31,6 +31,7 @@
 			<?php if(isset($error)): ?>
 				<p class="error"> There was an error uploading the file, please try again!</p>
 			<?php endif; ?>
+			
 			<button type="submit" class="btn btn-default">Upload</button><br/><br/><br/>
 		</form>
 	</div> <!-- / .col-md-offset-1 .col-sm-offset-1 .col-xs-6 .col-sm-5 .col-md-4 -->	
